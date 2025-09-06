@@ -1,7 +1,8 @@
 import express from 'express';
-import { getShortenedUrl } from '../controllers/url-controller.js';
+import { getLongUrl, shorten } from '../controllers/url-controller.js';
 
-export const router = express.Router();
+export const urlRoutes = express.Router();
 
-router.get('/shorten', getShortenedUrl);
+urlRoutes.post('/shorten', shorten);
 
+urlRoutes.get('/getLongUrl', getLongUrl);
