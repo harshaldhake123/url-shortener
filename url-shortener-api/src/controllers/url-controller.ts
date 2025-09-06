@@ -1,18 +1,20 @@
 import { Request, Response } from "express";
-import { convertIdToBase62String } from "../services/url.service";
+import { ShortenUrlApiRequest } from "../contracts/shorten-url-api-request.interface";
+import { urlRepository, urlService } from "../di";
 
-export const shorten = (request: Request, response: Response) => {
-    const body = request.body;
-    const id = 1234567890;
-    const result = convertIdToBase62String(id);
-    response.send({
-        shortUrl: "www.shortUrl.com/" + result,
-        originalUrl: body.longUrl,
-        id: id,
-        createdOnUtc: Date.now(),
-    });
-};
+export class UrlController {
 
-export const getLongUrl = (_request: Request, response: Response) => {
-    response.send("Long url");
-};
+    public shorten = (request: Request, response: Response) => {
+
+        const body = request.body as ShortenUrlApiRequest;
+
+        const uniqueId = urlRepository.getUniqueId(body.originalUrl);
+        const result = urlService.convertIdToBase62String(uniqueId);
+        response.send({
+            shortUrl: "www.shortUrl.com/".concat(result),
+            originalUrl: body.originalUrl,
+            id: uniqueId,
+            createdOnUtc: Date.now(),
+        });
+    };
+}

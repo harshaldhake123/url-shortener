@@ -1,19 +1,21 @@
-import { saveShortUrl } from "../repositories/url.repository";
+import { urlRepository } from "../di";
 
-const base62Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+export class UrlService {
+  private readonly Base62Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-export function convertIdToBase62String(id: number) {
-  if (id <= 0) {
-    return null;
+  public convertIdToBase62String(id: number): string {
+    if (id <= 0) {
+      return '';
+    }
+
+    let str = "";
+    while (id > 0) {
+      const remainder = id % 62;
+      id = Math.floor(id / 62);
+      str = this.Base62Chars[remainder] + str;
+    }
+    urlRepository.saveShortUrl(str);
+
+    return str;
   }
-
-  let str = "";
-  while (id > 0) {
-    const remainder = id % 62;
-    id = Math.floor(id / 62);
-    str = base62Chars[remainder] + str;
-  }
-  saveShortUrl(str);
-  return str;
 }
-

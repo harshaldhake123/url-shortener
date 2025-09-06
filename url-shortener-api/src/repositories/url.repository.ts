@@ -1,5 +1,20 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { pool } from "../database/db";
 
-export function saveShortUrl(url: string) {
-    pool.query('SELECT 1').then((x) => console.log(url + x.rows[0]));
+export class UrlRepository {
+    public saveShortUrl(url: string): void {
+        pool.query('SELECT 1').then((x) => {
+            console.log(x.rows[0]);
+            console.log(url);
+
+            return 1;
+        });
+    }
+
+    public getUniqueId(originalUrl: string): number {
+        //pool.query('INSERT INTO dbo.tbl_UrlMappings()');
+        console.log(originalUrl);
+
+        return 123456;
+    }
 }

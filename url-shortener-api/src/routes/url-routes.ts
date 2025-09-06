@@ -1,8 +1,15 @@
-import express from "express";
-import { getLongUrl, shorten } from "../controllers/url-controller";
+import express, { Router } from "express";
+import { urlController } from "../di";
 
-export const urlRoutes = express.Router();
+export class UrlRoutes {
+    public router: Router;
 
-urlRoutes.post("/shorten", shorten);
+    constructor() {
+        this.router = express.Router();
+        this.registerRoutes();
+    }
 
-urlRoutes.get("/getLongUrl", getLongUrl);
+    private registerRoutes(): void {
+        this.router.post("/shorten", urlController.shorten);
+    }
+}

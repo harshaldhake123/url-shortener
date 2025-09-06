@@ -12,5 +12,3 @@ export const pool = new Pool({
     port: config.db.port,
     idleTimeoutMillis: 30000,
 });
-
-
