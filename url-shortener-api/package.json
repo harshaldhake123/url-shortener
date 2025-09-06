@@ -4,17 +4,33 @@
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "module",
-  "main": "index.js",
+  "type": "commonjs",
+  "main": "index.ts",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "serve": "node dist/index.js",
+    "lint": "eslint src/**/*.{ts,tsx}"
+
   },
   "dependencies": {
+    "@types/pg": "^8.15.5",
     "dotenv": "^17.2.2",
-    "express": "^5.1.0",
     "pg": "^8.16.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@eslint/js": "^9.35.0",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "eslint": "^9.35.0",
+    "express": "^5.1.0",
+    "globals": "^16.3.0",
+    "jiti": "^2.5.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0"
   }
 }

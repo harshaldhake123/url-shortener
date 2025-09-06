@@ -1,5 +1,5 @@
 import express from "express";
-import { getLongUrl, shorten } from "../controllers/url-controller.js";
+import { getLongUrl, shorten } from "../controllers/url-controller";
 
 export const urlRoutes = express.Router();
 

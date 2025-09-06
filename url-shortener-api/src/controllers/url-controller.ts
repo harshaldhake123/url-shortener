@@ -1,6 +1,7 @@
-import { convertIdToBase62String } from "../services/url.service.js";
+import { Request, Response } from "express";
+import { convertIdToBase62String } from "../services/url.service";
 
-export const shorten = (request, response) => {
+export const shorten = (request: Request, response: Response) => {
     const body = request.body;
     const id = 1234567890;
     const result = convertIdToBase62String(id);
@@ -12,6 +13,6 @@ export const shorten = (request, response) => {
     });
 };
 
-export const getLongUrl = (_request, response) => {
+export const getLongUrl = (_request: Request, response: Response) => {
     response.send("Long url");
 };

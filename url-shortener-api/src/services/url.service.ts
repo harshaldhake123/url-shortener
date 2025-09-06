@@ -1,9 +1,11 @@
-import { saveShortUrl } from "../repositories/url.repository.js";
+import { saveShortUrl } from "../repositories/url.repository";
 
 const base62Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-export function convertIdToBase62String(id) {
-  if (id <= 0) return null;
+export function convertIdToBase62String(id: number) {
+  if (id <= 0) {
+    return null;
+  }
 
   let str = "";
   while (id > 0) {
