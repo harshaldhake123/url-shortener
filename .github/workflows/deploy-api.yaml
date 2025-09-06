@@ -1,4 +1,4 @@
-name: Deploy Express Backend to Azure Container Apps
+name: Build & Deploy Express Backend
 
 on:
   push:
@@ -19,8 +19,14 @@ jobs:
           node-version: "22"
 
       - name: Install dependencies
-        run: |
-          cd url-shortener-api
-          npm ci
-      - name: npm lint
+        run: npm ci
+        working-directory: url-shortener-api
+
+      - name: Run ESLint
         run: npm run lint
+        working-directory: url-shortener-api
+
+      - name: Build TypeScript
+        run: npm run build
+        working-directory: url-shortener-api
+
