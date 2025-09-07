@@ -10,6 +10,6 @@ export class UrlRoutes {
     }
 
     private registerRoutes(): void {
-        this.router.post("/shorten", urlController.shorten);
+        this.router.post("/shorten", urlController.createShortUrl);
     }
 }

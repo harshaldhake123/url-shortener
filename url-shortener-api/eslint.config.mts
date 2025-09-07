@@ -82,7 +82,6 @@ export default defineConfig([
       "padding-line-between-statements": [
         "error",
         { "blankLine": "always", "prev": "directive", "next": "*" },
-        { "blankLine": "always", "prev": "*", "next": "return" },
         { "blankLine": "always", "prev": "*", "next": "if" },
         { "blankLine": "always", "prev": "*", "next": "try" }
       ],

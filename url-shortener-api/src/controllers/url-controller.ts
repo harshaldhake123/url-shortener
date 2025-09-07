@@ -1,20 +1,27 @@
 import { Request, Response } from "express";
 import { ShortenUrlApiRequest } from "../contracts/shorten-url-api-request.interface";
-import { urlRepository, urlService } from "../di";
+import { urlService } from "../di";
 
 export class UrlController {
+    private readonly DomainName = "www.shortUrl.com/";
 
-    public shorten = (request: Request, response: Response) => {
+    public createShortUrl = async (request: Request, response: Response) => {
 
         const body = request.body as ShortenUrlApiRequest;
 
-        const uniqueId = urlRepository.getUniqueId(body.originalUrl);
-        const result = urlService.convertIdToBase62String(uniqueId);
-        response.send({
-            shortUrl: "www.shortUrl.com/".concat(result),
-            originalUrl: body.originalUrl,
-            id: uniqueId,
-            createdOnUtc: Date.now(),
-        });
+        return await urlService.shortenUrl(body.originalUrl)
+            .then(result => {
+                if (result === null) {
+
+                    return response.status(500).json({ error: 'Failed to shorten url' });
+                }
+
+                return response.status(200).json({
+                    shortUrl: this.DomainName.concat(result.shortUrl),
+                    originalUrl: body.originalUrl,
+                    id: result.id,
+                    createdOnUtc: result.createdDateTimeUtc,
+                });
+            });
     };
 }
