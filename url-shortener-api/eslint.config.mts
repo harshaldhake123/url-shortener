@@ -77,7 +77,6 @@ export default defineConfig([
       "no-implicit-coercion": "error",
 
       // Formatting and spacing
-      "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
       "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
       "padding-line-between-statements": [
         "error",
@@ -92,7 +91,44 @@ export default defineConfig([
       "prefer-const": "error",
       "no-var": "error",
       "object-shorthand": ["error", "always"],
-      "arrow-body-style": ["error", "as-needed"]
+      "arrow-body-style": ["error", "as-needed"],
+      'quotes': ['error', 'single'],
+      'semi': 'error',
+      'space-before-blocks': 'error',
+      'arrow-spacing': 'error',
+      'keyword-spacing': 'error',
+      'space-infix-ops': 'error',
+      'no-template-curly-in-string': 'error',
+      'camelcase': 'error',
+      'no-else-return': 'error',
+      'comma-spacing': 'error',
+      'array-bracket-spacing': 'error',
+      'no-spaced-func': 'error',
+      'key-spacing': 'error',
+      'no-multi-spaces': 'error',
+      'no-unused-vars': 'off',
+      'yoda': 'error',
+      'complexity': 'error',
+      'max-depth': 'error',
+      'func-style': 'error',
+      'object-curly-spacing': 'off',
+      'space-in-parens': ['error', 'never'],
+      'brace-style': ['error', '1tbs'],
+      'function-paren-newline': ['error', 'multiline-arguments'],
+      'function-call-argument-newline': ['error', 'consistent'],
+      'space-before-function-paren': [
+        'error',
+        { named: 'never' }
+      ],
+      'indent': [
+        'error',
+        'tab',
+        { SwitchCase: 1 }
+      ],
+      'no-multiple-empty-lines': [
+        'error',
+        { max: 1 }
+      ],
     },
   },
   {
