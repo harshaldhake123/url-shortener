@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "url-shortner-ui:build:production"
+              "buildTarget": "url-shortner-ui:build:production"
             },
             "development": {
-              "browserTarget": "url-shortner-ui:build:development"
+              "buildTarget": "url-shortner-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "url-shortner-ui:build"
+            "buildTarget": "url-shortner-ui:build"
           }
         },
         "test": {
