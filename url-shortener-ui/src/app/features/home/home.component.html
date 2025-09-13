@@ -1,0 +1,13 @@
+<div class="hero-section">
+    <h1>Shorter Links, Stronger Reach</h1>
+    <p>Create compact links that last longer and travel farther.</p>
+    <form [formGroup]="shortenUrlForm" (ngSubmit)="submitShortenUrlForm()">
+        <mat-form-field appearance="outline">
+            <mat-label>Long URL</mat-label>
+            <input matInput type="text" formControlName="originalUrl" placeholder="Enter the long URL">
+            <mat-icon matPrefix>globe</mat-icon>
+        </mat-form-field>
+        <button mat-flat-button type="submit"> Generate short URL </button>
+
+    </form>
+</div>

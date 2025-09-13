@@ -1,0 +1,12 @@
+.main-toolbar-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 4rem;
+	background-color: var(--mat-sys-color-primary);
+	color: var(--mat-sys-color-primary);
+}
+
+.title-large {
+	font: var(--mat-sys-title-large);
+}
