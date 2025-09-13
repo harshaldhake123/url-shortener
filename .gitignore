@@ -141,6 +141,6 @@ vite.config.ts.timestamp-*
 
 # IDE
 .vs
-
+.vscode
 # Secrets
 .env
