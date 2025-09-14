@@ -52,3 +52,4 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_UI_DEPLOYMENT_TOKEN }}
           app_location: ${{ env.UI_LOCATION }}
           output_location: ${{ env.OUTPUT_LOCATION }}
+		  action: "upload"
