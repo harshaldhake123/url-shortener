@@ -1,12 +1,27 @@
-.main-toolbar-container {
+.toolbar-container {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
-	height: 4rem;
-	background-color: var(--mat-sys-color-primary);
-	color: var(--mat-sys-color-primary);
+	justify-content: space-between;
 }
 
-.title-large {
-	font: var(--mat-sys-title-large);
+mat-toolbar {
+	position: sticky;
+	top: 0;
+	background-color: var(--mat-sys-primary);
+	z-index: 2;
+}
+
+
+.logo {
+	display: flex;
+	align-items: center;
+	font-size: var(--mat-sys-display-large);
+	color: var(--mat-sys-surface);
+}
+
+.logo mat-icon {
+	margin-right: 0.5rem;
+	font-size: 2rem;
+	width: 2rem;
+	height: 2rem;
 }

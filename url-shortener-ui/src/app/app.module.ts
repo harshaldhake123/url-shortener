@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MainToolbarComponent } from "./features/main-toolbar/main-toolbar.component";
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,9 +13,9 @@ import { MainToolbarComponent } from "./features/main-toolbar/main-toolbar.compo
     BrowserModule,
     AppRoutingModule,
     MainToolbarComponent
-],
+  ],
   providers: [
-    provideAnimationsAsync()
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })
