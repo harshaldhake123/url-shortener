@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: "22.x"
           cache: "npm" # Caches `node_modules` for faster builds
+          cache-dependency-path: './url-shortener-ui/package-lock.json'
 
       - name: Install dependencies
         run: npm install
