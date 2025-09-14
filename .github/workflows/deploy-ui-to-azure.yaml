@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - url-shortener-ui/**
-    #   - .github/workflows/deploy-ui-to-azure.yaml
 
 #Environment variables at the workflow level
 env:
@@ -26,17 +23,16 @@ jobs:
         with:
           submodules: true
           lfs: false
-        # The following steps are necessary additions for an Angular project
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
           node-version: "22.x"
-          cache: "npm" # Caches `node_modules` for faster builds
+          cache: "npm"
           cache-dependency-path: ${{ env.UI_LOCATION }}/package-lock.json
 
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ env.UI_LOCATION }} # Change to the correct directory
+        working-directory: ${{ env.UI_LOCATION }}
 
       - name: Lint project
         run: npm run lint
@@ -52,4 +48,4 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_UI_DEPLOYMENT_TOKEN }}
           app_location: ${{ env.UI_LOCATION }}
           output_location: ${{ env.OUTPUT_LOCATION }}
-		  action: "upload"
+          action: "upload"
