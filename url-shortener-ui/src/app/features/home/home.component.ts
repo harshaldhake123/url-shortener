@@ -9,6 +9,7 @@ import { UrlApiService } from 'src/app/services/url-api.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -27,20 +28,20 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class HomeComponent {
 
-  public readonly shortenUrlForm: FormGroup;
   private readonly fb = inject(FormBuilder);
   private readonly apiService = inject(UrlApiService);
-
-  constructor() {
-    this.shortenUrlForm = this.fb.group({
-      originalUrl: new FormControl('', { nonNullable: true })
-    });
-  }
+  public readonly shortenUrlForm: FormGroup = this.fb.group({
+    originalUrl: new FormControl('', { nonNullable: true })
+  });
+  private readonly shortLinkPreviewForm: FormGroup = this.fb.group({ shortLinkPreview: new FormControl('') });
 
   public submitShortenUrlForm(): void {
     this.apiService.saveShortUrl(this.shortenUrlForm.value).pipe(
       takeUntilDestroyed(),
-
-    )
+      filter(response => response?.body == null),
+      map(response => response.body),
+    ).subscribe(response => {
+      this.shortLinkPreviewForm.controls['shortLinkPreview'].setValue(response!.shortUrl)
+    });
   }
 }
