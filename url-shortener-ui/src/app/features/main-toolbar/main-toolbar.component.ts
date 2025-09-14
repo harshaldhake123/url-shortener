@@ -4,14 +4,13 @@ import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
-  selector: 'app-main-toolbar',
-  standalone: true,
-  imports: [
-    MatIconModule,
-    MatButtonModule
-  ],
-  templateUrl: './main-toolbar.component.html',
-  styleUrl: './main-toolbar.component.scss'
+    selector: 'app-main-toolbar',
+    imports: [
+        MatIconModule,
+        MatButtonModule
+    ],
+    templateUrl: './main-toolbar.component.html',
+    styleUrl: './main-toolbar.component.scss'
 })
 export class MainToolbarComponent {
 
