@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { UrlApiService } from 'src/app/services/url-api.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,9 @@ export class HomeComponent {
   }
 
   public submitShortenUrlForm(): void {
-    this.apiService.saveShortUrl(this.shortenUrlForm.value);
-    // this.shortenUrlForm.value.
+    this.apiService.saveShortUrl(this.shortenUrlForm.value).pipe(
+      takeUntilDestroyed(),
+
+    )
   }
 }
