@@ -10,8 +10,8 @@ on:
       - main
 #Environment variables at the workflow level
 env:
-  UI_LOCATION: "/url-shortener-ui"
-  OUTPUT_LOCATION: "/url-shortener-ui/dist/url-shortener-ui"
+  UI_LOCATION: "url-shortener-ui"
+  OUTPUT_LOCATION: "dist/url-shortener-ui/browser"
 
 jobs:
   build_and_deploy_job:
@@ -32,15 +32,15 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: .${{ env.UI_LOCATION }}
+        working-directory: ${{ env.UI_LOCATION }}
 
       - name: Lint project
         run: npm run lint
-        working-directory: .${{ env.UI_LOCATION }}
+        working-directory: ${{ env.UI_LOCATION }}
 
       - name: Build for production
         run: npm run build:prod
-        working-directory: .${{ env.UI_LOCATION }}
+        working-directory: ${{ env.UI_LOCATION }}
       
       - name: Deploy
         id: builddeploy
