@@ -7,8 +7,8 @@ on:
 
 #Environment variables at the workflow level
 env:
-  UI_LOCATION: "./url-shortener-ui"
-  OUTPUT_LOCATION: "./dist/url-shortener-ui"
+  UI_LOCATION: "/url-shortener-ui"
+  OUTPUT_LOCATION: "/url-shortener-ui/dist/url-shortener-ui"
 
 jobs:
   build_and_deploy_job:
