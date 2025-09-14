@@ -28,19 +28,19 @@ jobs:
         with:
           node-version: "22.x"
           cache: "npm"
-          cache-dependency-path: ${{ env.UI_LOCATION }}/package-lock.json
+          cache-dependency-path: .${{ env.UI_LOCATION }}/package-lock.json
 
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ env.UI_LOCATION }}
+        working-directory: .${{ env.UI_LOCATION }}
 
       - name: Lint project
         run: npm run lint
-        working-directory: ${{ env.UI_LOCATION }}
+        working-directory: .${{ env.UI_LOCATION }}
 
       - name: Build for production
         run: npm run build:prod
-        working-directory: ${{ env.UI_LOCATION }}
+        working-directory: .${{ env.UI_LOCATION }}
       
       - name: Deploy
         id: builddeploy
