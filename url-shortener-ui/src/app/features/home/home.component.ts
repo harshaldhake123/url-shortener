@@ -9,7 +9,7 @@ import { UrlApiService } from 'src/app/services/url-api.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter, map, switchMap } from 'rxjs';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-home',
