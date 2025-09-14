@@ -15,23 +15,42 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     permissions:
-       id-token: write
-       contents: read
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
+        # The following steps are necessary additions for an Angular project
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: "npm" # Caches `node_modules` for faster builds
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: "./url-shortener-ui" # Change to the correct directory
+
+      - name: Lint project
+        run: npm run lint
+        working-directory: "./url-shortener-ui"
+
+      - name: Build for production
+        run: npm run build:prod
+        working-directory: "./url-shortener-ui"
+
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
       - name: Get Id Token
         uses: actions/github-script@v6
         id: idtoken
         with:
-           script: |
-               const coredemo = require('@actions/core')
-               return await coredemo.getIDToken()
-           result-encoding: string
+          script: |
+            const coredemo = require('@actions/core')
+            return await coredemo.getIDToken()
+          result-encoding: string
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
