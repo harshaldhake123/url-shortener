@@ -5,15 +5,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @Component({
-    selector: 'app-main-toolbar',
-    imports: [
-        MatIconModule,
-        MatButtonModule,
-        MatToolbarModule
+	selector: 'app-main-toolbar',
+	imports: [
+		MatIconModule,
+		MatButtonModule,
+		MatToolbarModule
 
-    ],
-    templateUrl: './main-toolbar.component.html',
-    styleUrl: './main-toolbar.component.scss'
+	],
+	templateUrl: './main-toolbar.component.html',
+	styleUrl: './main-toolbar.component.scss'
 })
 export class MainToolbarComponent {
 

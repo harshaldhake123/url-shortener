@@ -1,50 +1,55 @@
 <div class="main-content">
-    <mat-card class="link-shortener-card">
-        <mat-card-content>
-            <h1>Shorter Links, Stronger Reach</h1>
-            <p>Create compact links that last longer and travel farther.</p>
+	<mat-card class="link-shortener-card">
+		<mat-card-content>
+			<h1>Shorter Links, Stronger Reach</h1>
+			<p>Create compact links that last longer and travel farther.</p>
 
-            <div class="input-section">
-                <form [formGroup]="shortenUrlForm" (ngSubmit)="submitShortenUrlForm()">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Paste your long URL here</mat-label>
-                        <input matInput type="text" formControlName="originalUrl" placeholder="Enter the long URL">
-                        <button matSuffix matIconButton
-                            matTooltip="Anonymous links may expire, user accounts coming soon">
-                            <mat-icon>info</mat-icon>
-                        </button>
-                    </mat-form-field>
-                    <button mat-raised-button color="primary" class="shorten-button">Shorten Link</button>
+			<div class="input-section">
+				<form [formGroup]="shortenUrlForm" (ngSubmit)="submitShortenUrlForm()">
+					<mat-form-field appearance="outline">
+						<mat-label>Paste your long URL here</mat-label>
+						<input matInput type="text" formControlName="originalUrl" placeholder="Enter the long URL"
+							#urlInput="matTooltip" [matTooltip]="tooltipMessage" matTooltipPosition="above">
+						<button type="button" matSuffix matIconButton
+							matTooltip="Anonymous links may expire, user accounts coming soon">
+							<mat-icon>info</mat-icon>
+						</button>
+					</mat-form-field>
+					<button type="submit" mat-raised-button color="primary" class="shorten-button">Shorten Link</button>
 
-                </form>
-            </div>
+				</form>
+			</div>
 
-            <div class="features">
-                <div class="feature-item">
-                    <mat-icon>flash_on</mat-icon>
-                    <span>Fast & Reliable</span>
-                </div>
-                <div class="feature-item">
-                    <mat-icon>share</mat-icon>
-                    <span>Easy Sharing</span>
-                </div>
-                <div class="feature-item">
-                    <mat-icon>bar_chart</mat-icon>
-                    <span>Track Clicks</span>
-                </div>
-            </div>
+			<div class="features">
+				<div class="feature-item">
+					<mat-icon>flash_on</mat-icon>
+					<span>Fast & Reliable</span>
+				</div>
+				<div class="feature-item">
+					<mat-icon>share</mat-icon>
+					<span>Easy Sharing</span>
+				</div>
+				<div class="feature-item">
+					<mat-icon>bar_chart</mat-icon>
+					<span>Track Clicks</span>
+				</div>
+			</div>
 
-            <mat-divider></mat-divider>
+			<mat-divider></mat-divider>
 
-            <div class="preview-link-section">
-                <mat-form-field appearance="outline" class="full-width-preview">
-                    <mat-label>Your Shortened Link (Anonymous)</mat-label>
-                    <input matInput readonly formControlName="shortLinkPreview">
-                    <button matSuffix matIconButton matTooltip="Copy to clipboard">
-                        <mat-icon>content_copy</mat-icon>
-                    </button>
-                </mat-form-field>
-            </div>
-        </mat-card-content>
-    </mat-card>
+			<div class="preview-link-section" [formGroup]="shortLinkPreviewForm">
+				<mat-form-field appearance="outline" class="full-width-preview">
+					<mat-label>Your Shortened Link (Anonymous)</mat-label>
+					<input matInput readonly formControlName="shortLinkPreview"
+						placeholder="Your short url will appear here">
+					<button type="button" matSuffix matIconButton
+						[cdkCopyToClipboard]="shortLinkPreviewForm.controls['shortLinkPreview'].value"
+						(cdkCopyToClipboardCopied)="onCopySuccess()" matTooltip="Copy to clipboard">
+						<mat-icon>content_copy</mat-icon>
+					</button>
+
+				</mat-form-field>
+			</div>
+		</mat-card-content>
+	</mat-card>
 </div>

@@ -20,7 +20,6 @@ export class UrlApiService {
 	private readonly httpClient = inject(HttpClient);
 
 	public saveShortUrl(request: ShortenUrlApiRequest): Observable<HttpResponse<ShortenUrlApiResponse>> {
-		return this.httpClient.post<HttpResponse<ShortenUrlApiResponse>>('url', request, { observe: 'body' });
+		return this.httpClient.post<ShortenUrlApiResponse>('/shorten', request, { observe: 'response' });
 	}
-
 }

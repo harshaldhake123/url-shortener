@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 
 const appCorsOptions: CorsOptions = {
-	origin: 'localhost:4200'
+	origin: 'http://localhost:4200'
 };
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 

@@ -1,5 +1,5 @@
 import { IEnvironment } from "./environment.interface";
 
 export const environment: IEnvironment = {
-    apiBaseUrl: '/'
+	apiBaseUrl: 'http://localhost:3000/'
 };
