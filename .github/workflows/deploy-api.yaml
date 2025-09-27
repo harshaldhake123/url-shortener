@@ -40,7 +40,7 @@ jobs:
               working-directory: ${{ env.API_DIR_PATH }}
 
             - name: Package Build Artifact
-              run: zip -r release.zip dist package.json package-lock.json prisma
+              run: zip -r ../release.zip dist package.json package-lock.json prisma
               working-directory: ${{ env.API_DIR_PATH }}
 
             - name: Upload Build Artifact
