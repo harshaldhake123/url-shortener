@@ -11,7 +11,7 @@ on:
 env:
     UI_LOCATION: "url-shortener-ui"
     OUTPUT_LOCATION: "url-shortener-ui/dist/url-shortener-ui/browser"
-    CONFIG_FILE: "src/assets/config.json"
+    CONFIG_FILE: "assets/config.json"
 
 jobs:
     build:
@@ -44,7 +44,7 @@ jobs:
 
             - name: Inject Runtime Config from GitHub Secrets
               run: |
-                  sed -i "s|#API_BASE_URL#|${{ secrets.PROD_API_BASE_URL }}|g" ${{ env.UI_LOCATION }}/${{ env.CONFIG_FILE }}
+                  sed -i "s|#API_BASE_URL#|${{ secrets.PROD_API_BASE_URL }}|g" ${{ env.OUTPUT_LOCATION }}/${{ env.CONFIG_FILE }}
                   # add more sed lines here for new keys
 
             - name: Build for Production

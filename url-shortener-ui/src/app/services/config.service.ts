@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 export interface IAppConfig {
 	apiBaseUrl: string;
-	featureFlagX?: string;
 }
 
 @Injectable({
