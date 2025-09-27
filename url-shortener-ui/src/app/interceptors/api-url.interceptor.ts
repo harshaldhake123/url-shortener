@@ -1,7 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { inject } from '@angular/core';
+import { ConfigService } from '../services/config.service';
 
 export const apiUrlInterceptor: HttpInterceptorFn = (req, next) => {
-	const apiReq = req.clone({ url: `${environment.apiBaseUrl}${req.url.startsWith('/') ? '' : '/'}${req.url}` });
+	const configService = inject(ConfigService);
+	const apiReq = req.clone({ url: `${configService.apiBaseUrl}${req.url.startsWith('/') ? '' : '/'}${req.url}` });
 	return next(apiReq);
 };
