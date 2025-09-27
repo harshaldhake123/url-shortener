@@ -5,34 +5,47 @@ import { urlService } from '../di';
 export class UrlController {
 	private readonly DomainName = 'https://www.shortUrl.com/';
 
-	public redirectShortCode = async (request: Request, response: Response) => await urlService.getOriginalUrl(request.params.shortCode)
-		.then(originalUrl => {
-			console.log(originalUrl);
+	public redirectShortCode = async (request: Request, response: Response): Promise<void | Response> => {
+		const shortCode = request.params.shortCode;
 
-			if (originalUrl === null || originalUrl.trim().length === 0) {
-				return response.status(404).json({ error: 'No long url found for the short code' });
+		try {
+			const originalUrl = await urlService.getOriginalUrl(shortCode);
+
+			if (!originalUrl?.trim()) {
+				console.warn(`No URL found for shortCode: ${shortCode}`);
+				return response.status(404).json({ error: 'No long URL found for the short code' });
 			}
-			response.redirect(301, this.DomainName + originalUrl);
-		})
-		.catch(() => response.status(500).json({ error: 'failed to fetch original url' }));
 
-	public createShortUrl = async (request: Request, response: Response) => {
+			const redirectUrl = this.DomainName + originalUrl;
+			response.redirect(301, redirectUrl);
+			return;
+		} catch (err) {
+			console.error(`Error fetching original URL for shortCode: ${shortCode}`, err);
+			return response.status(500).json({ error: 'Failed to fetch original URL' });
+		}
+	};
 
+	public createShortUrl = async (request: Request, response: Response): Promise<void | Response> => {
 		const body = request.body as ShortenUrlApiRequest;
 
-		return await urlService.shortenUrl(body.originalUrl)
-			.then(result => {
-				if (result === null) {
+		try {
+			const result = await urlService.shortenUrl(body.originalUrl);
 
-					return response.status(500).json({ error: 'Failed to shorten url' });
-				}
+			if (!result) {
+				console.error('Failed to shorten URL:', body.originalUrl);
+				return response.status(500).json({ error: 'Failed to shorten URL' });
+			}
 
-				return response.status(200).json({
-					shortUrl: this.DomainName.concat(result.shortUrl),
-					originalUrl: body.originalUrl,
-					id: result.id,
-					createdOnUtc: result.createdDateTimeUtc,
-				});
+			return response.status(200).json({
+				shortUrl: `${this.DomainName}${result.shortUrl}`,
+				originalUrl: body.originalUrl,
+				id: result.id,
+				createdDateTimeUtc: result.createdDateTimeUtc,
 			});
+		} catch (err) {
+			console.error('Error creating short URL:', err, body.originalUrl);
+			return response.status(500).json({ error: 'Internal server error' });
+		}
 	};
+
 }
