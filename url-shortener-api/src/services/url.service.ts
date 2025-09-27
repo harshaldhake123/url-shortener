@@ -1,4 +1,5 @@
 import { urlRepository } from '../di';
+import { ShortUrl } from '../models/shorturl.interface';
 
 export class UrlService {
 
@@ -8,7 +9,19 @@ export class UrlService {
 		return result;
 	}
 
-	public async shortenUrl(originalUrl: string): Promise<{ shortUrl: string, id: number, createdDateTimeUtc: Date } | null> {
-		return await urlRepository.saveShortUrl(originalUrl);
+	public async shortenUrl(originalUrl: string): Promise<ShortUrl | null> {
+		const repoResponse = await urlRepository.saveShortUrl(originalUrl);
+
+		if (!repoResponse?.id || !repoResponse.shortCode) {
+			console.error('Failed to save short URL:', repoResponse);
+			return null;
+		}
+
+		return {
+			id: repoResponse.id,
+			shortUrl: repoResponse.shortCode,
+			createdDateTimeUtc: repoResponse.createdDateTimeUtc,
+		};
 	}
 }
+
