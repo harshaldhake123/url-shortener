@@ -4,6 +4,9 @@ on:
     push:
         branches:
             - main
+        paths:
+            - "url-shortener-ui/**"
+            - ".github/workflows/deploy-ui.yaml"
 
 env:
     UI_LOCATION: "url-shortener-ui"
