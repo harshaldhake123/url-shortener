@@ -47,7 +47,7 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                   name: api-artifact
-                  path: ${{ env.API_DIR_PATH }}/release.zip
+                  path: release.zip
 
     migrate:
         name: Run Database Migrations
