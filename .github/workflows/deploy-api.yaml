@@ -61,9 +61,7 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                   name: api-artifact
-
-            - name: Extract Artifact
-              run: unzip release.zip
+                  path: api-artifact
 
             - name: Azure Login
               uses: azure/login@v2
@@ -77,4 +75,4 @@ jobs:
               with:
                   app-name: "ShortLnk"
                   slot-name: "Production"
-                  package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+                  package: api-artifact/release.zip
