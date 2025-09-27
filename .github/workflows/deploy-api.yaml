@@ -1,4 +1,4 @@
-name: Deploy API
+name: Build and Deploy API with DB Migration
 
 on:
     push:
@@ -7,7 +7,6 @@ on:
         paths:
             - "url-shortener-api/**"
             - ".github/workflows/deploy-api.yaml"
-
     workflow_dispatch:
 
 env:
@@ -25,7 +24,7 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v4
 
-            - name: Setup Node.js ${{ env.NODE_VERSION }}
+            - name: Set up Node.js
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ env.NODE_VERSION }}
@@ -44,10 +43,10 @@ jobs:
 
             - name: Package Build Artifact
               run: |
-                  zip -r release.zip dist package.json package-lock.json host.json prisma
+                  zip -r release.zip dist package.json package-lock.json prisma
               working-directory: ${{ env.API_DIR_PATH }}
 
-            - name: Upload Build Artifact
+            - name: Upload artifact for deployment
               uses: actions/upload-artifact@v4
               with:
                   name: api-artifact
@@ -64,8 +63,8 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v4
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
               with:
                   node-version: ${{ env.NODE_VERSION }}
 
@@ -76,42 +75,13 @@ jobs:
             - name: Run Prisma Migrations
               run: npx prisma migrate deploy
               working-directory: ${{ env.API_DIR_PATH }}
-              env:
-                  DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-
-    migrate:
-        name: Run Database Migrations
-        runs-on: ubuntu-latest
-        needs: build
-        env:
-            DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v4
-
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ env.NODE_VERSION }}
-
-            - name: Install Dependencies
-              run: npm ci
-              working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-
-            - name: Run Prisma Migrations
-              run: npx prisma migrate deploy
-              working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
               env:
                   DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
 
     deploy:
-        name: Deploy API to Azure
+        name: Deploy API to Azure Web App
         runs-on: ubuntu-latest
         needs: migrate
-        permissions:
-            id-token: write
-            contents: read
 
         steps:
             - name: Download Build Artifact
@@ -121,7 +91,10 @@ jobs:
                   path: api-artifact
 
             - name: Deploy to Azure Web App
+              id: deploy-to-webapp
               uses: azure/webapps-deploy@v3
               with:
                   app-name: "shortlnkr"
+                  slot-name: "Production"
+                  publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E0FE18A1C280411295DEC490EF304718 }}
                   package: api-artifact/release.zip
