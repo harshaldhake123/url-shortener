@@ -12,10 +12,6 @@ env:
     API_DIR_PATH: "url-shortener-api"
     NODE_VERSION: "22.x"
 
-defaults:
-    run:
-        working-directory: ${{ env.API_DIR_PATH }}
-
 jobs:
     build:
         name: Build API
@@ -34,21 +30,25 @@ jobs:
 
             - name: Install Dependencies
               run: npm ci
+              working-directory: ${{ env.API_DIR_PATH }}
 
             - name: Lint Project
               run: npm run lint
+              working-directory: ${{ env.API_DIR_PATH }}
 
             - name: Build Project
               run: npm run build
+              working-directory: ${{ env.API_DIR_PATH }}
 
             - name: Package Build Artifact
               run: zip -r release.zip dist package.json package-lock.json prisma
+              working-directory: ${{ env.API_DIR_PATH }}
 
             - name: Upload Build Artifact
               uses: actions/upload-artifact@v4
               with:
                   name: api-artifact
-                  path: release.zip
+                  path: ${{ env.API_DIR_PATH }}/release.zip
 
     migrate:
         name: Run Database Migrations
