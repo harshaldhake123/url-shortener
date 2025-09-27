@@ -8,6 +8,8 @@ on:
             - "url-shortener-ui/**"
             - ".github/workflows/deploy-ui.yaml"
 
+    workflow_dispatch:
+
 env:
     UI_LOCATION: "url-shortener-ui"
     OUTPUT_LOCATION: "url-shortener-ui/dist/url-shortener-ui/browser"
