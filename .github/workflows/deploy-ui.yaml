@@ -1,4 +1,4 @@
-name: Deploy UI - ShortLnk (Azure Static Web App)
+name: Deploy UI
 
 on:
     push:
@@ -7,7 +7,7 @@ on:
 
 env:
     UI_LOCATION: "url-shortener-ui"
-    OUTPUT_LOCATION: "dist/url-shortener-ui/browser"
+    OUTPUT_LOCATION: "url-shortener-ui/dist/url-shortener-ui/browser"
 
 jobs:
     build:

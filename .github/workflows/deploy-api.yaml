@@ -1,4 +1,4 @@
-name: Deploy API - ShortLnk (Azure Function App)
+name: Deploy API
 
 on:
     push:
